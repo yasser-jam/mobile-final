@@ -4,7 +4,7 @@ import React from 'react'
 
 // Create a reusable axios instance
 const axiosInstance = axios.create({
-  baseURL: `${process.env.baseUrl}/auth/v1`,
+  baseURL: `http://localhost:3002`,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,20 +10,41 @@ import {
   FormMessage,
   FormField,
 } from "@/components/ui/form";
-
+import { api } from "@/lib/api";
+import { Button } from "@/components/ui/button";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 interface LoginFormValues {
   phone: string;
   password: string;
 }
 
 export default function LoginPage() {
+  const router = useRouter()
   const form = useForm<LoginFormValues>({
     defaultValues: { phone: "", password: "" },
   });
 
-  const onSubmit = (values: LoginFormValues) => {
+  const [loading, setLoading] = useState(false)
+
+  const onSubmit = async (values: LoginFormValues) => {
     // handle login logic here
-    console.log(values);
+    try {
+      setLoading(true)
+      const response = await api('/auth/login', {
+        method: 'POST',
+        body: {
+          mobile_phone_number: values.phone,
+          password: values.password
+        }
+      })
+
+      Cookies.set('teacher-access-token', response?.access_token)
+
+      if (router) router.replace('/')
+    } finally {
+      setLoading(false)
+    }
   };
 
   return (
@@ -60,12 +81,12 @@ export default function LoginPage() {
                 </FormItem>
               )}
             />
-            <button
+            <Button
               type="submit"
               className="mt-2 bg-primary text-white py-2 rounded font-semibold hover:bg-primary/90 transition"
             >
               Login
-            </button>
+            </Button>
           </form>
         </Form>
       </div>
