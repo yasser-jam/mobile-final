@@ -9,7 +9,7 @@
     "lint": "next lint",
     "generate-sw": "npx workbox generateSW workbox-config.js",
     "serve": "npx serve@latest out",
-    "build:pwa": "pnpm build && pnpm generate-sw && pnpm serve"
+    "build:pwa": "pnpm build && pnpm generate-sw"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
