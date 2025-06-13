@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-sw": "npx workbox generateSW workbox-config.js",
+    "serve": "npx serve@latest out",
+    "build:pwa": "pnpm build && pnpm export && pnpm generate-sw"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -70,6 +73,7 @@
     "@types/web-push": "^3.6.4",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "workbox-cli": "^7.3.0"
   }
 }
